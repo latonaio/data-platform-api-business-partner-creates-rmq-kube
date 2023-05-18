@@ -1,6 +1,7 @@
 package dpfm_api_processing_formatter
 
 type GeneralUpdates struct {
+	BusinessPartner               int     `json:"BusinessPartner"`
 	BusinessPartnerFullName       *string `json:"BusinessPartnerFullName"`
 	CreationTime                  *string `json:"CreationTime"`
 	Industry                      *string `json:"Industry"`
@@ -25,10 +26,17 @@ type GeneralUpdates struct {
 }
 
 type RoleUpdates struct {
-	ValidityStartDate string `json:"ValidityStartDate"`
+	BusinessPartner     int    `json:"BusinessPartner"`
+	BusinessPartnerRole string `json:"BusinessPartnerRole"`
+	ValidityEndDate     string `json:"ValidityEndDate"`
+	ValidityStartDate   string `json:"ValidityStartDate"`
 }
 
 type FinInstUpdates struct {
+	BusinessPartner          int     `json:"BusinessPartner"`
+	FinInstIdentification    int     `json:"FinInstIdentification"`
+	ValidityEndDate          string  `json:"ValidityEndDate"`
+	ValidityStartDate        string  `json:"ValidityStartDate"`
 	InternalFinInstAccountID *int    `json:"InternalFinInstAccountID"`
 	FinInstControlKey        *string `json:"FinInstControlKey"`
 	FinInstAccountName       *string `json:"FinInstAccountName"`
@@ -39,6 +47,7 @@ type FinInstUpdates struct {
 }
 
 type AccountingUpdates struct {
+	BusinessPartner     int     `json:"BusinessPartner"`
 	ChartOfAccounts     *string `json:"ChartOfAccounts"`
 	FiscalYearVariant   *string `json:"FiscalYearVariant"`
 	IsMarkedForDeletion *bool   `json:"IsMarkedForDeletion"`

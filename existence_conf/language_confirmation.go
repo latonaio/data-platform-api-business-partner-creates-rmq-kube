@@ -8,27 +8,41 @@ import (
 	"golang.org/x/xerrors"
 )
 
-func (c *ExistenceConf) languageExistenceConf(input *dpfm_api_input_reader.SDC, existenceMap *[]bool, exconfErrMsg *string, errs *[]error, mtx *sync.Mutex, wg *sync.WaitGroup, log *logger.Logger) {
+func (c *ExistenceConf) generalLanguageExistenceConf(mapper ExConfMapper, input *dpfm_api_input_reader.SDC, existenceMap *[]bool, exconfErrMsg *string, errs *[]error, mtx *sync.Mutex, wg *sync.WaitGroup, log *logger.Logger) {
 	defer wg.Done()
-	if input.General.Language != nil {
-		if len(*input.General.Language) == 0 {
-			*exconfErrMsg = "cannot specify null keys"
-			return
-		}
+	wg2 := sync.WaitGroup{}
+	exReqTimes := 0
+
+	generals := make([]dpfm_api_input_reader.General, 0, 1)
+	generals = append(generals, input.General)
+	for _, general := range generals {
+		language := getGeneralLanguageExistenceConfKey(mapper, &general, exconfErrMsg)
+		wg2.Add(1)
+		exReqTimes++
+		go func() {
+			if isZero(language) {
+				wg2.Done()
+				return
+			}
+			res, err := c.languageExistenceConfRequest(language, mapper, input, existenceMap, mtx, log)
+			if err != nil {
+				mtx.Lock()
+				*errs = append(*errs, err)
+				mtx.Unlock()
+			}
+			if res != "" {
+				*exconfErrMsg = res
+			}
+			wg2.Done()
+		}()
 	}
-	res, err := c.languageExistenceConfRequest(*input.General.Currency, input, existenceMap, mtx, log)
-	if err != nil {
-		mtx.Lock()
-		*errs = append(*errs, err)
-		mtx.Unlock()
-	}
-	if res != "" {
-		*exconfErrMsg = res
+	wg2.Wait()
+	if exReqTimes == 0 {
+		*existenceMap = append(*existenceMap, false)
 	}
 }
 
-func (c *ExistenceConf) languageExistenceConfRequest(language string, input *dpfm_api_input_reader.SDC, existenceMap *[]bool, mtx *sync.Mutex, log *logger.Logger) (string, error) {
-	key := "Language"
+func (c *ExistenceConf) languageExistenceConfRequest(language string, mapper ExConfMapper, input *dpfm_api_input_reader.SDC, existenceMap *[]bool, mtx *sync.Mutex, log *logger.Logger) (string, error) {
 	keys := newResult(map[string]interface{}{
 		"Language": language,
 	})
@@ -45,7 +59,7 @@ func (c *ExistenceConf) languageExistenceConfRequest(language string, input *dpf
 	}
 	req.LanguageReturn.Language = language
 
-	exist, err = c.exconfRequest(req, key, log)
+	exist, err = c.exconfRequest(req, mapper, log)
 	if err != nil {
 		return "", err
 	}
@@ -53,4 +67,18 @@ func (c *ExistenceConf) languageExistenceConfRequest(language string, input *dpf
 		return keys.fail(), nil
 	}
 	return "", nil
+}
+
+func getGeneralLanguageExistenceConfKey(mapper ExConfMapper, general *dpfm_api_input_reader.General, exconfErrMsg *string) string {
+	var language string
+
+	switch mapper.Field {
+	case "Language":
+		if general.Language == nil {
+			language = ""
+		} else {
+			language = *general.Language
+		}
+	}
+	return language
 }

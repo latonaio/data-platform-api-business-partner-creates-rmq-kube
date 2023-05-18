@@ -70,7 +70,7 @@ type SDC struct {
 }
 
 type General struct {
-	BusinessPartner               *int         `json:"BusinessPartner"`
+	BusinessPartner               int          `json:"BusinessPartner"`
 	BusinessPartnerFullName       *string      `json:"BusinessPartnerFullName"`
 	BusinessPartnerName           *string      `json:"BusinessPartnerName"`
 	CreationDate                  *string      `json:"CreationDate"`

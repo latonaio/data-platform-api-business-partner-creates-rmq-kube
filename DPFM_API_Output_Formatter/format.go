@@ -1,173 +1,157 @@
 package dpfm_api_output_formatter
 
 import (
+	dpfm_api_input_reader "data-platform-api-business-partner-creates-rmq-kube/DPFM_API_Input_Reader"
 	dpfm_api_processing_formatter "data-platform-api-business-partner-creates-rmq-kube/DPFM_API_Processing_Formatter"
-	"data-platform-api-business-partner-creates-rmq-kube/sub_func_complementer"
+	"encoding/json"
+	"time"
+
+	"golang.org/x/xerrors"
 )
 
-func ConvertToGeneralCreates(subfuncSDC *sub_func_complementer.SDC) *General {
-	data := subfuncSDC.Message.General
+func ConvertToGeneralCreates(sdc *dpfm_api_input_reader.SDC) (*General, error) {
+	data := sdc.General
 
-	general := &General{
-		BusinessPartner:               data.BusinessPartner,
-		BusinessPartnerFullName:       data.BusinessPartnerFullName,
-		BusinessPartnerName:           data.BusinessPartnerName,
-		CreationDate:                  data.CreationDate,
-		CreationTime:                  data.CreationTime,
-		Industry:                      data.Industry,
-		LegalEntityRegistration:       data.LegalEntityRegistration,
-		Country:                       data.Country,
-		Language:                      data.Language,
-		Currency:                      data.Currency,
-		LastChangeDate:                data.LastChangeDate,
-		LastChangeTime:                data.LastChangeTime,
-		OrganizationBPName1:           data.OrganizationBPName1,
-		OrganizationBPName2:           data.OrganizationBPName2,
-		OrganizationBPName3:           data.OrganizationBPName3,
-		OrganizationBPName4:           data.OrganizationBPName4,
-		BPTag1:                        data.BPTag1,
-		BPTag2:                        data.BPTag2,
-		BPTag3:                        data.BPTag3,
-		BPTag4:                        data.BPTag4,
-		OrganizationFoundationDate:    data.OrganizationFoundationDate,
-		OrganizationLiquidationDate:   data.OrganizationLiquidationDate,
-		BusinessPartnerBirthplaceName: data.BusinessPartnerBirthplaceName,
-		BusinessPartnerDeathDate:      data.BusinessPartnerDeathDate,
-		BusinessPartnerIsBlocked:      data.BusinessPartnerIsBlocked,
-		GroupBusinessPartnerName1:     data.GroupBusinessPartnerName1,
-		GroupBusinessPartnerName2:     data.GroupBusinessPartnerName2,
-		AddressID:                     data.AddressID,
-		BusinessPartnerIDByExtSystem:  data.BusinessPartnerIDByExtSystem,
-		IsMarkedForDeletion:           data.IsMarkedForDeletion,
+	general, err := TypeConverter[*General](data)
+	if err != nil {
+		return nil, err
 	}
+	// general.CreationDate = *getSystemDatePtr()
+	// general.CreationTime = *getSystemTimePtr()
+	// general.LastChangeDate = getSystemDatePtr()
+	// general.LastChangeTime = getSystemTimePtr()
 
-	return general
+	return general, nil
 }
 
-func ConvertToGeneralUpdates(generalUpdates *dpfm_api_processing_formatter.GeneralUpdates) *General {
-	data := generalUpdates
+func ConvertToFinInstCreates(sdc *dpfm_api_input_reader.SDC) (*[]FinInst, error) {
+	finInsts := make([]FinInst, 0)
 
-	general := &General{
-		BusinessPartnerFullName:       data.BusinessPartnerFullName,
-		CreationTime:                  data.CreationTime,
-		Industry:                      data.Industry,
-		LegalEntityRegistration:       data.LegalEntityRegistration,
-		OrganizationBPName1:           data.OrganizationBPName1,
-		OrganizationBPName2:           data.OrganizationBPName2,
-		OrganizationBPName3:           data.OrganizationBPName3,
-		OrganizationBPName4:           data.OrganizationBPName4,
-		BPTag1:                        data.BPTag1,
-		BPTag2:                        data.BPTag2,
-		BPTag3:                        data.BPTag3,
-		BPTag4:                        data.BPTag4,
-		OrganizationFoundationDate:    data.OrganizationFoundationDate,
-		OrganizationLiquidationDate:   data.OrganizationLiquidationDate,
-		BusinessPartnerBirthplaceName: data.BusinessPartnerBirthplaceName,
-		BusinessPartnerDeathDate:      data.BusinessPartnerDeathDate,
-		BusinessPartnerIsBlocked:      data.BusinessPartnerIsBlocked,
-		GroupBusinessPartnerName1:     data.GroupBusinessPartnerName1,
-		GroupBusinessPartnerName2:     data.GroupBusinessPartnerName2,
-		BusinessPartnerIDByExtSystem:  data.BusinessPartnerIDByExtSystem,
-		IsMarkedForDeletion:           data.IsMarkedForDeletion,
+	for _, data := range sdc.General.FinInst {
+		finInst, err := TypeConverter[*FinInst](data)
+		if err != nil {
+			return nil, err
+		}
+
+		finInsts = append(finInsts, *finInst)
 	}
 
-	return general
+	return &finInsts, nil
 }
 
-func ConvertToRoleCreates(subfuncSDC *sub_func_complementer.SDC) *[]Role {
-	var role []Role
+func ConvertToRoleCreates(sdc *dpfm_api_input_reader.SDC) (*[]Role, error) {
+	roles := make([]Role, 0)
 
-	for _, data := range subfuncSDC.Message.Role {
-		role = append(role, Role{
-			BusinessPartner:     data.BusinessPartner,
-			BusinessPartnerRole: data.BusinessPartnerRole,
-			ValidityEndDate:     data.ValidityEndDate,
-			ValidityStartDate:   data.ValidityStartDate,
-		})
+	for _, data := range sdc.General.Role {
+		role, err := TypeConverter[*Role](data)
+		if err != nil {
+			return nil, err
+		}
+
+		roles = append(roles, *role)
 	}
 
-	return &role
+	return &roles, nil
 }
 
-func ConvertToRoleUpdates(roleUpdates *dpfm_api_processing_formatter.RoleUpdates) *Role {
-	data := roleUpdates
+func ConvertToAccountingCreates(sdc *dpfm_api_input_reader.SDC) (*[]Accounting, error) {
+	accountings := make([]Accounting, 0)
 
-	role := &Role{
-		ValidityStartDate: data.ValidityStartDate,
+	for _, data := range sdc.General.Accounting {
+		accounting, err := TypeConverter[*Accounting](data)
+		if err != nil {
+			return nil, err
+		}
+
+		accountings = append(accountings, *accounting)
 	}
 
-	return role
+	return &accountings, nil
 }
 
-func ConvertToFinInstCreates(subfuncSDC *sub_func_complementer.SDC) *[]FinInst {
-	var finInst []FinInst
+func ConvertToGeneralUpdates(generalData dpfm_api_input_reader.General) (*General, error) {
+	data := generalData
 
-	for _, data := range subfuncSDC.Message.FinInst {
-		finInst = append(finInst, FinInst{
-			BusinessPartner:           data.BusinessPartner,
-			FinInstIdentification:     data.FinInstIdentification,
-			ValidityEndDate:           data.ValidityEndDate,
-			ValidityStartDate:         data.ValidityStartDate,
-			FinInstCountry:            data.FinInstCountry,
-			FinInstCode:               data.FinInstCode,
-			FinInstBranchCode:         data.FinInstBranchCode,
-			FinInstFullCode:           data.FinInstFullCode,
-			FinInstName:               data.FinInstName,
-			FinInstBranchName:         data.FinInstBranchName,
-			SWIFTCode:                 data.SWIFTCode,
-			InternalFinInstCustomerID: data.InternalFinInstCustomerID,
-			InternalFinInstAccountID:  data.InternalFinInstAccountID,
-			FinInstControlKey:         data.FinInstControlKey,
-			FinInstAccountName:        data.FinInstAccountName,
-			FinInstAccount:            data.FinInstAccount,
-			HouseBank:                 data.HouseBank,
-			HouseBankAccount:          data.HouseBankAccount,
-			IsMarkedForDeletion:       data.IsMarkedForDeletion,
-		})
+	general, err := TypeConverter[*General](data)
+	if err != nil {
+		return nil, err
 	}
 
-	return &finInst
+	return general, nil
 }
 
-func ConvertToFinInstUpdates(finInstUpdates *dpfm_api_processing_formatter.FinInstUpdates) *FinInst {
-	data := finInstUpdates
+func ConvertToFinInstUpdates(finInstUpdates *[]dpfm_api_processing_formatter.FinInstUpdates) (*[]FinInst, error) {
+	finInsts := make([]FinInst, 0)
 
-	finInst := &FinInst{
-		InternalFinInstAccountID: data.InternalFinInstAccountID,
-		FinInstControlKey:        data.FinInstControlKey,
-		FinInstAccountName:       data.FinInstAccountName,
-		FinInstAccount:           data.FinInstAccount,
-		HouseBank:                data.HouseBank,
-		HouseBankAccount:         data.HouseBankAccount,
-		IsMarkedForDeletion:      data.IsMarkedForDeletion,
+	for _, data := range *finInstUpdates {
+		finInst, err := TypeConverter[*FinInst](data)
+		if err != nil {
+			return nil, err
+		}
+
+		finInsts = append(finInsts, *finInst)
 	}
 
-	return finInst
+	return &finInsts, nil
 }
 
-func ConvertToAccountingCreates(subfuncSDC *sub_func_complementer.SDC) *[]Accounting {
-	var accounting []Accounting
+func ConvertToRoleUpdates(roleUpdates *[]dpfm_api_processing_formatter.RoleUpdates) (*[]Role, error) {
+	roles := make([]Role, 0)
 
-	for _, data := range subfuncSDC.Message.Accounting {
-		accounting = append(accounting, Accounting{
-			BusinessPartner:     data.BusinessPartner,
-			ChartOfAccounts:     data.ChartOfAccounts,
-			FiscalYearVariant:   data.FiscalYearVariant,
-			IsMarkedForDeletion: data.IsMarkedForDeletion,
-		})
+	for _, data := range *roleUpdates {
+		role, err := TypeConverter[*Role](data)
+		if err != nil {
+			return nil, err
+		}
+
+		roles = append(roles, *role)
 	}
 
-	return &accounting
+	return &roles, nil
 }
 
-func ConvertToAccountingUpdates(accountingUpdates *dpfm_api_processing_formatter.AccountingUpdates) *Accounting {
-	data := accountingUpdates
+func ConvertToAccountingUpdates(accountingUpdates *[]dpfm_api_processing_formatter.AccountingUpdates) (*[]Accounting, error) {
+	accountings := make([]Accounting, 0)
 
-	accounting := &Accounting{
-		ChartOfAccounts:     data.ChartOfAccounts,
-		FiscalYearVariant:   data.FiscalYearVariant,
-		IsMarkedForDeletion: data.IsMarkedForDeletion,
+	for _, data := range *accountingUpdates {
+		accounting, err := TypeConverter[*Accounting](data)
+		if err != nil {
+			return nil, err
+		}
+
+		accountings = append(accountings, *accounting)
 	}
 
-	return accounting
+	return &accountings, nil
+}
+
+func TypeConverter[T any](data interface{}) (T, error) {
+	var dist T
+	b, err := json.Marshal(data)
+	if err != nil {
+		return dist, xerrors.Errorf("Marshal error: %w", err)
+	}
+	err = json.Unmarshal(b, &dist)
+	if err != nil {
+		return dist, xerrors.Errorf("Unmarshal error: %w", err)
+	}
+	return dist, nil
+}
+
+func getSystemDatePtr() *string {
+	// jst, _ := time.LoadLocation("Asia/Tokyo")
+	// day := time.Now().In(jst)
+
+	day := time.Now()
+	res := day.Format("2006-01-02")
+	return &res
+}
+
+func getSystemTimePtr() *string {
+	// jst, _ := time.LoadLocation("Asia/Tokyo")
+	// day := time.Now().In(jst)
+
+	day := time.Now()
+	res := day.Format("15:04:05")
+	return &res
 }

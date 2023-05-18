@@ -6,7 +6,6 @@ import (
 	dpfm_api_output_formatter "data-platform-api-business-partner-creates-rmq-kube/DPFM_API_Output_Formatter"
 	"data-platform-api-business-partner-creates-rmq-kube/config"
 	"data-platform-api-business-partner-creates-rmq-kube/existence_conf"
-	"data-platform-api-business-partner-creates-rmq-kube/sub_func_complementer"
 	"sync"
 	"time"
 
@@ -20,22 +19,19 @@ type DPFMAPICaller struct {
 	conf *config.Conf
 	rmq  *rabbitmq.RabbitmqClient
 
-	configure    *existence_conf.ExistenceConf
-	complementer *sub_func_complementer.SubFuncComplementer
+	configure *existence_conf.ExistenceConf
 }
 
 func NewDPFMAPICaller(
 	conf *config.Conf, rmq *rabbitmq.RabbitmqClient,
 
 	confirmor *existence_conf.ExistenceConf,
-	complementer *sub_func_complementer.SubFuncComplementer,
 ) *DPFMAPICaller {
 	return &DPFMAPICaller{
-		ctx:          context.Background(),
-		conf:         conf,
-		rmq:          rmq,
-		configure:    confirmor,
-		complementer: complementer,
+		ctx:       context.Background(),
+		conf:      conf,
+		rmq:       rmq,
+		configure: confirmor,
 	}
 }
 
@@ -51,39 +47,29 @@ func (c *DPFMAPICaller) AsyncBusinessPartnerCreates(
 	exconfAllExist := false
 
 	exconfFin := make(chan error)
-	subFuncFin := make(chan error)
-
-	subfuncSDC := &sub_func_complementer.SDC{}
 
 	// 他PODへ問い合わせ
 	wg.Add(1)
-	go c.exconfProcess(&mtx, &wg, exconfFin, input, output, &exconfAllExist, &errs, log)
-	if input.APIType == "creates" {
-		go c.subfuncProcess(&mtx, &wg, subFuncFin, input, output, subfuncSDC, accepter, &errs, log)
-	} else if input.APIType == "updates" {
-		go func() { subFuncFin <- nil }()
-	} else {
-		go func() { subFuncFin <- nil }()
-	}
+	go c.exconfProcess(&mtx, &wg, exconfFin, input, output, &exconfAllExist, accepter, &errs, log)
 
 	// 処理待ち
 	ticker := time.NewTicker(10 * time.Second)
-	if errs = c.finWait(&mtx, exconfFin, ticker); len(errs) != 0 {
-		return subfuncSDC, errs
+	if err := c.finWait(&mtx, exconfFin, ticker); err != nil || len(errs) != 0 {
+		if err != nil {
+			errs = append(errs, err)
+		}
+		return dpfm_api_output_formatter.Message{}, errs
 	}
 	if !exconfAllExist {
 		mtx.Lock()
-		return subfuncSDC, nil
+		return dpfm_api_output_formatter.Message{}, nil
 	}
 	wg.Wait()
-	if errs = c.finWait(&mtx, subFuncFin, ticker); len(errs) != 0 {
-		return subfuncSDC, errs
-	}
 
 	var response interface{}
 	// SQL処理
 	if input.APIType == "creates" {
-		response = c.createSqlProcess(nil, &mtx, input, output, subfuncSDC, accepter, &errs, log)
+		response = c.createSqlProcess(nil, &mtx, input, output, accepter, &errs, log)
 	} else if input.APIType == "updates" {
 		response = c.updateSqlProcess(nil, &mtx, input, output, accepter, &errs, log)
 	}
@@ -98,12 +84,13 @@ func (c *DPFMAPICaller) exconfProcess(
 	input *dpfm_api_input_reader.SDC,
 	output *dpfm_api_output_formatter.SDC,
 	exconfAllExist *bool,
+	accepter []string,
 	errs *[]error,
 	log *logger.Logger,
 ) {
 	defer wg.Done()
 	var e []error
-	*exconfAllExist, e = c.configure.Conf(input, output, log)
+	*exconfAllExist, e = c.configure.Conf(input, output, accepter, log)
 	if len(e) != 0 {
 		mtx.Lock()
 		*errs = append(*errs, e...)
@@ -114,80 +101,21 @@ func (c *DPFMAPICaller) exconfProcess(
 	exconfFin <- nil
 }
 
-func (c *DPFMAPICaller) subfuncProcess(
-	mtx *sync.Mutex,
-	wg *sync.WaitGroup,
-	subFuncFin chan error,
-	input *dpfm_api_input_reader.SDC,
-	output *dpfm_api_output_formatter.SDC,
-	subfuncSDC *sub_func_complementer.SDC,
-	accepter []string,
-	errs *[]error,
-	log *logger.Logger,
-) {
-	for _, fn := range accepter {
-		wg.Add(1)
-		switch fn {
-		case "General":
-			c.generalCreate(mtx, wg, subFuncFin, input, output, subfuncSDC, errs, log)
-		default:
-			wg.Done()
-		}
-	}
-}
-
 func (c *DPFMAPICaller) finWait(
 	mtx *sync.Mutex,
 	finChan chan error,
 	ticker *time.Ticker,
-) []error {
-	errs := make([]error, 1)
+) error {
 	select {
 	case e := <-finChan:
 		if e != nil {
 			mtx.Lock()
-			errs[1] = e
-			return errs
+			return e
 		}
 	case <-ticker.C:
-		errs = append(errs, xerrors.New("time out"))
-		return errs
+		return xerrors.New("time out")
 	}
 	return nil
-}
-
-func (c *DPFMAPICaller) generalCreate(
-	mtx *sync.Mutex,
-	wg *sync.WaitGroup,
-	errFin chan error,
-	input *dpfm_api_input_reader.SDC,
-	output *dpfm_api_output_formatter.SDC,
-	subfuncSDC *sub_func_complementer.SDC,
-	errs *[]error,
-	log *logger.Logger,
-) {
-	var err error = nil
-	defer func() {
-		errFin <- err
-	}()
-	defer wg.Done()
-	err = c.complementer.ComplementGeneral(input, subfuncSDC, log)
-	if err != nil {
-		log.Error(err)
-		err = nil
-		mtx.Lock()
-		*errs = append(*errs, err)
-		mtx.Unlock()
-		return
-	}
-	output.SubfuncResult = getBoolPtr(true)
-	if subfuncSDC.SubfuncResult == nil || !*subfuncSDC.SubfuncResult {
-		output.SubfuncResult = getBoolPtr(false)
-		output.SubfuncError = subfuncSDC.SubfuncError
-		err = xerrors.New(output.SubfuncError)
-		return
-	}
-	return
 }
 
 func checkResult(msg rabbitmq.RabbitmqMessage) bool {
@@ -205,4 +133,13 @@ func checkResult(msg rabbitmq.RabbitmqMessage) bool {
 
 func getBoolPtr(b bool) *bool {
 	return &b
+}
+
+func contains(slice []string, target string) bool {
+	for _, v := range slice {
+		if v == target {
+			return true
+		}
+	}
+	return false
 }

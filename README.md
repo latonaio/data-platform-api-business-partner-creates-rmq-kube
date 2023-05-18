@@ -22,7 +22,6 @@ data-platform-api-business-partner-creates-rmq-kube には、次の API をコ�
 * A_GeneralPDF（ビジネスパートナ - 一般PDFデータ）
 * A_Role（ビジネスパートナ - ロールデータ）
 * A_FinInst（ビジネスパートナ - 金融機関データ）
-* A_Relationship（ビジネスパートナ - リレーションシップデータ）
 * A_Accounting（ビジネスパートナ - 会計データ）
 
 ## API への 値入力条件 の 初期値

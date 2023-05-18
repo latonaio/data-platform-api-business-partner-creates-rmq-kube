@@ -8,6 +8,7 @@ func ConvertToGeneralUpdates(general dpfm_api_input_reader.General) *GeneralUpda
 	data := general
 
 	return &GeneralUpdates{
+		BusinessPartner:               data.BusinessPartner,
 		BusinessPartnerFullName:       data.BusinessPartnerFullName,
 		CreationTime:                  data.CreationTime,
 		Industry:                      data.Industry,
@@ -32,18 +33,27 @@ func ConvertToGeneralUpdates(general dpfm_api_input_reader.General) *GeneralUpda
 	}
 }
 
-func ConvertToRoleUpdates(role dpfm_api_input_reader.Role) *RoleUpdates {
+func ConvertToRoleUpdates(general dpfm_api_input_reader.General, role dpfm_api_input_reader.Role) *RoleUpdates {
+	dataGeneral := general
 	data := role
 
 	return &RoleUpdates{
-		ValidityStartDate: data.ValidityStartDate,
+		BusinessPartner:     dataGeneral.BusinessPartner,
+		BusinessPartnerRole: data.BusinessPartnerRole,
+		ValidityEndDate:     data.ValidityEndDate,
+		ValidityStartDate:   data.ValidityStartDate,
 	}
 }
 
-func ConvertToFinInstUpdates(finInst dpfm_api_input_reader.FinInst) *FinInstUpdates {
+func ConvertToFinInstUpdates(general dpfm_api_input_reader.General, finInst dpfm_api_input_reader.FinInst) *FinInstUpdates {
+	dataGeneral := general
 	data := finInst
 
 	return &FinInstUpdates{
+		BusinessPartner:          dataGeneral.BusinessPartner,
+		FinInstIdentification:    data.FinInstIdentification,
+		ValidityEndDate:          data.ValidityEndDate,
+		ValidityStartDate:        data.ValidityStartDate,
 		InternalFinInstAccountID: data.InternalFinInstAccountID,
 		FinInstControlKey:        data.FinInstControlKey,
 		FinInstAccountName:       data.FinInstAccountName,
@@ -54,10 +64,12 @@ func ConvertToFinInstUpdates(finInst dpfm_api_input_reader.FinInst) *FinInstUpda
 	}
 }
 
-func ConvertToAccountingUpdates(accounting dpfm_api_input_reader.Accounting) *AccountingUpdates {
+func ConvertToAccountingUpdates(general dpfm_api_input_reader.General, accounting dpfm_api_input_reader.Accounting) *AccountingUpdates {
+	dataGeneral := general
 	data := accounting
 
 	return &AccountingUpdates{
+		BusinessPartner:     dataGeneral.BusinessPartner,
 		ChartOfAccounts:     data.ChartOfAccounts,
 		FiscalYearVariant:   data.FiscalYearVariant,
 		IsMarkedForDeletion: data.IsMarkedForDeletion,

@@ -3,23 +3,24 @@
 	"result": true,
 	"redis_key": "abcdefg",
 	"filepath": "/var/lib/aion/Data/rededge_sdc/abcdef.json",
-	"runtime_session_id": "",
 	"api_status_code": 200,
-	"business_partner": 201,
+	"runtime_session_id": "boi9ar543dg91ipdnspi099u231280ab0v8af0ew",
+	"business_partner": 101,
 	"service_label": "BUSINESS_PARTNER",
+	"api_type": "creates",
 	"BusinessPartner": {
-		"BusinessPartner": 101,
-		"BusinessPartnerFullName": "",
-		"BusinessPartnerName": "",
-		"CreationDate": "",
-		"CreationTime": "",
-		"Industry": "",
+		"BusinessPartner": 371,
+		"BusinessPartnerFullName": "日本電信電話株式会社",
+		"BusinessPartnerName": "NTT",
+		"CreationDate": "2023-04-29",
+		"CreationTime": "15:43:11",
+		"Industry": "37",
 		"LegalEntityRegistration": "",
-		"Country": "",
-		"Language": "",
-		"Currency": "",
-		"LastChangeDate": "",
-		"LastChangeTime": "",
+		"Country": "JP",
+		"Language": "JA",
+		"Currency": "JPY",
+		"LastChangeDate": "2023-04-29",
+		"LastChangeTime": "15:43:11",
 		"OrganizationBPName1": "",
 		"OrganizationBPName2": "",
 		"OrganizationBPName3": "",
@@ -28,29 +29,32 @@
 		"BPTag2": "",
 		"BPTag3": "",
 		"BPTag4": "",
-		"OrganizationFoundationDate": "",
+		"OrganizationFoundationDate": "1985-04-01",
 		"OrganizationLiquidationDate": "",
 		"BusinessPartnerBirthplaceName": "",
 		"BusinessPartnerDeathDate": "",
 		"BusinessPartnerIsBlocked": null,
 		"GroupBusinessPartnerName1": "",
 		"GroupBusinessPartnerName2": "",
-		"AddressID": null,
+		"AddressID": 370070001,
 		"BusinessPartnerIDByExtSystem": "",
-		"IsMarkedForDeletion": null,
-		"Role": {
-			"BusinessPartnerRole": "",
-			"ValidityEndDate": "",
-			"ValidityStartDate": ""
-		},
-		"FinInst": {
-			"FinInstIdentification": null,
-			"ValidityEndDate": "",
-			"ValidityStartDate": "",
-			"FinInstCountry": "",
-			"FinInstCode": "",
-			"FinInstBranchCode": "",
-			"FinInstFullCode": "",
+		"IsMarkedForDeletion": false,
+		"Role": [
+			{
+			"BusinessPartnerRole": "SERVICE-PROVIDER",
+			"ValidityEndDate": "2023-01-01",
+			"ValidityStartDate": "2999-12-31"
+			}
+		],
+		"FinInst": [
+			{
+			"FinInstIdentification": 1,
+			"ValidityEndDate": "2023-01-01",
+			"ValidityStartDate": "2999-12-31",
+			"FinInstCountry": "JP",
+			"FinInstCode": "0005001",
+			"FinInstBranchCode": "XXX",
+			"FinInstFullCode": "XXXX",
 			"FinInstName": "",
 			"FinInstBranchName": "",
 			"SWIFTCode": "",
@@ -61,17 +65,20 @@
 			"FinInstAccount": "",
 			"HouseBank": "",
 			"HouseBankAccount": "",
-			"IsMarkedForDeletion": null
-		},
-		"Accounting": {
+			"IsMarkedForDeletion": false
+			}
+		],
+		"Accounting": [
+			{
 			"ChartOfAccounts": "",
 			"FiscalYearVariant": "",
-			"IsMarkedForDeletion": null
-		}
+			"IsMarkedForDeletion": false
+			}
+		]
 	},
 	"api_schema": "DPFMBusinessPartnerGeneralCreates",
 	"accepter": [
-		"All"
+		"General"
 	],
 	"business_partner_id": null,
 	"deleted": false

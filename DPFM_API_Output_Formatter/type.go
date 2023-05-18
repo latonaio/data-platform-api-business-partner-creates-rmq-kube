@@ -34,14 +34,14 @@ type Message struct {
 type General struct {
 	BusinessPartner               int     `json:"BusinessPartner"`
 	BusinessPartnerFullName       *string `json:"BusinessPartnerFullName"`
-	BusinessPartnerName           *string `json:"BusinessPartnerName"`
-	CreationDate                  *string `json:"CreationDate"`
-	CreationTime                  *string `json:"CreationTime"`
+	BusinessPartnerName           string  `json:"BusinessPartnerName"`
+	CreationDate                  string  `json:"CreationDate"`
+	CreationTime                  string  `json:"CreationTime"`
 	Industry                      *string `json:"Industry"`
 	LegalEntityRegistration       *string `json:"LegalEntityRegistration"`
-	Country                       *string `json:"Country"`
-	Language                      *string `json:"Language"`
-	Currency                      *string `json:"Currency"`
+	Country                       string  `json:"Country"`
+	Language                      string  `json:"Language"`
+	Currency                      string  `json:"Currency"`
 	LastChangeDate                *string `json:"LastChangeDate"`
 	LastChangeTime                *string `json:"LastChangeTime"`
 	OrganizationBPName1           *string `json:"OrganizationBPName1"`
@@ -87,10 +87,10 @@ type FinInst struct {
 	FinInstIdentification     int     `json:"FinInstIdentification"`
 	ValidityEndDate           string  `json:"ValidityEndDate"`
 	ValidityStartDate         string  `json:"ValidityStartDate"`
-	FinInstCountry            *string `json:"FinInstCountry"`
-	FinInstCode               *string `json:"FinInstCode"`
-	FinInstBranchCode         *string `json:"FinInstBranchCode"`
-	FinInstFullCode           *string `json:"FinInstFullCode"`
+	FinInstCountry            string  `json:"FinInstCountry"`
+	FinInstCode               string  `json:"FinInstCode"`
+	FinInstBranchCode         string  `json:"FinInstBranchCode"`
+	FinInstFullCode           string  `json:"FinInstFullCode"`
 	FinInstName               *string `json:"FinInstName"`
 	FinInstBranchName         *string `json:"FinInstBranchName"`
 	SWIFTCode                 *string `json:"SWIFTCode"`
