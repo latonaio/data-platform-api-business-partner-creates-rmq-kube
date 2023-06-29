@@ -3,7 +3,6 @@ package dpfm_api_processing_formatter
 type GeneralUpdates struct {
 	BusinessPartner               int     `json:"BusinessPartner"`
 	BusinessPartnerFullName       *string `json:"BusinessPartnerFullName"`
-	CreationTime                  *string `json:"CreationTime"`
 	Industry                      *string `json:"Industry"`
 	LegalEntityRegistration       *string `json:"LegalEntityRegistration"`
 	OrganizationBPName1           *string `json:"OrganizationBPName1"`
@@ -18,11 +17,10 @@ type GeneralUpdates struct {
 	OrganizationLiquidationDate   *string `json:"OrganizationLiquidationDate"`
 	BusinessPartnerBirthplaceName *string `json:"BusinessPartnerBirthplaceName"`
 	BusinessPartnerDeathDate      *string `json:"BusinessPartnerDeathDate"`
-	BusinessPartnerIsBlocked      *bool   `json:"BusinessPartnerIsBlocked"`
 	GroupBusinessPartnerName1     *string `json:"GroupBusinessPartnerName1"`
 	GroupBusinessPartnerName2     *string `json:"GroupBusinessPartnerName2"`
 	BusinessPartnerIDByExtSystem  *string `json:"BusinessPartnerIDByExtSystem"`
-	IsMarkedForDeletion           *bool   `json:"IsMarkedForDeletion"`
+	BusinessPartnerIsBlocked      *bool   `json:"BusinessPartnerIsBlocked"`
 }
 
 type RoleUpdates struct {
@@ -33,22 +31,23 @@ type RoleUpdates struct {
 }
 
 type FinInstUpdates struct {
-	BusinessPartner          int     `json:"BusinessPartner"`
-	FinInstIdentification    int     `json:"FinInstIdentification"`
-	ValidityEndDate          string  `json:"ValidityEndDate"`
-	ValidityStartDate        string  `json:"ValidityStartDate"`
-	InternalFinInstAccountID *int    `json:"InternalFinInstAccountID"`
-	FinInstControlKey        *string `json:"FinInstControlKey"`
-	FinInstAccountName       *string `json:"FinInstAccountName"`
-	FinInstAccount           *string `json:"FinInstAccount"`
-	HouseBank                *string `json:"HouseBank"`
-	HouseBankAccount         *string `json:"HouseBankAccount"`
-	IsMarkedForDeletion      *bool   `json:"IsMarkedForDeletion"`
+	BusinessPartner           int     `json:"BusinessPartner"`
+	FinInstIdentification     int     `json:"FinInstIdentification"`
+	FinInstCountry            *string `json:"FinInstCountry"`
+	FinInstCode               *string `json:"FinInstCode"`
+	FinInstBranchCode         *string `json:"FinInstBranchCode"`
+	FinInstFullCode           *string `json:"FinInstFullCode"`
+	InternalFinInstCustomerID *int    `json:"InternalFinInstCustomerID"`
+	InternalFinInstAccountID  *int    `json:"InternalFinInstAccountID"`
+	FinInstControlKey         *string `json:"FinInstControlKey"`
+	FinInstAccountName        *string `json:"FinInstAccountName"`
+	FinInstAccount            *string `json:"FinInstAccount"`
+	HouseBank                 *string `json:"HouseBank"`
+	HouseBankAccount          *string `json:"HouseBankAccount"`
 }
 
 type AccountingUpdates struct {
 	BusinessPartner     int     `json:"BusinessPartner"`
 	ChartOfAccounts     *string `json:"ChartOfAccounts"`
 	FiscalYearVariant   *string `json:"FiscalYearVariant"`
-	IsMarkedForDeletion *bool   `json:"IsMarkedForDeletion"`
 }

@@ -50,17 +50,19 @@ func ConvertToFinInstUpdates(general dpfm_api_input_reader.General, finInst dpfm
 	data := finInst
 
 	return &FinInstUpdates{
-		BusinessPartner:          dataGeneral.BusinessPartner,
-		FinInstIdentification:    data.FinInstIdentification,
-		ValidityEndDate:          data.ValidityEndDate,
-		ValidityStartDate:        data.ValidityStartDate,
-		InternalFinInstAccountID: data.InternalFinInstAccountID,
-		FinInstControlKey:        data.FinInstControlKey,
-		FinInstAccountName:       data.FinInstAccountName,
-		FinInstAccount:           data.FinInstAccount,
-		HouseBank:                data.HouseBank,
-		HouseBankAccount:         data.HouseBankAccount,
-		IsMarkedForDeletion:      data.IsMarkedForDeletion,
+		BusinessPartner:          	dataGeneral.BusinessPartner,
+		FinInstIdentification:  	data.FinInstIdentification,
+		FinInstCountry:				data.FinInstCountry,
+		FinInstCode:				data.FinInstCode,
+		FinInstBranchCode:			data.FinInstBranchCode,
+		FinInstFullCode:			data.FinInstFullCode,
+		InternalFinInstCustomerID:	data.InternalFinInstCustomerID,
+		InternalFinInstAccountID:	data.InternalFinInstAccountID,
+		FinInstControlKey:        	data.FinInstControlKey,
+		FinInstAccountName:       	data.FinInstAccountName,
+		FinInstAccount:           	data.FinInstAccount,
+		HouseBank:                	data.HouseBank,
+		HouseBankAccount:         	data.HouseBankAccount,
 	}
 }
 

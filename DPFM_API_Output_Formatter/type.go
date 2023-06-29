@@ -34,16 +34,12 @@ type Message struct {
 type General struct {
 	BusinessPartner               int     `json:"BusinessPartner"`
 	BusinessPartnerFullName       *string `json:"BusinessPartnerFullName"`
-	BusinessPartnerName           string  `json:"BusinessPartnerName"`
-	CreationDate                  string  `json:"CreationDate"`
-	CreationTime                  string  `json:"CreationTime"`
+	BusinessPartnerName           *string `json:"BusinessPartnerName"`
 	Industry                      *string `json:"Industry"`
 	LegalEntityRegistration       *string `json:"LegalEntityRegistration"`
-	Country                       string  `json:"Country"`
-	Language                      string  `json:"Language"`
-	Currency                      string  `json:"Currency"`
-	LastChangeDate                *string `json:"LastChangeDate"`
-	LastChangeTime                *string `json:"LastChangeTime"`
+	Country                       *string `json:"Country"`
+	Language                      *string `json:"Language"`
+	Currency                      *string `json:"Currency"`
 	OrganizationBPName1           *string `json:"OrganizationBPName1"`
 	OrganizationBPName2           *string `json:"OrganizationBPName2"`
 	OrganizationBPName3           *string `json:"OrganizationBPName3"`
@@ -56,12 +52,14 @@ type General struct {
 	OrganizationLiquidationDate   *string `json:"OrganizationLiquidationDate"`
 	BusinessPartnerBirthplaceName *string `json:"BusinessPartnerBirthplaceName"`
 	BusinessPartnerDeathDate      *string `json:"BusinessPartnerDeathDate"`
-	BusinessPartnerIsBlocked      *bool   `json:"BusinessPartnerIsBlocked"`
 	GroupBusinessPartnerName1     *string `json:"GroupBusinessPartnerName1"`
 	GroupBusinessPartnerName2     *string `json:"GroupBusinessPartnerName2"`
 	AddressID                     *int    `json:"AddressID"`
 	BusinessPartnerIDByExtSystem  *string `json:"BusinessPartnerIDByExtSystem"`
-	IsMarkedForDeletion           *bool   `json:"IsMarkedForDeletion"`
+	BusinessPartnerIsBlocked      *bool   `json:"BusinessPartnerIsBlocked"`
+	CreationDate                  *string `json:"CreationDate"`
+	LastChangeDate                *string `json:"LastChangeDate"`
+	IsMarkedForDeletion 		  *bool   `json:"IsMarkedForDeletion"`
 }
 
 type GeneralDoc struct {
@@ -85,12 +83,10 @@ type Role struct {
 type FinInst struct {
 	BusinessPartner           int     `json:"BusinessPartner"`
 	FinInstIdentification     int     `json:"FinInstIdentification"`
-	ValidityEndDate           string  `json:"ValidityEndDate"`
-	ValidityStartDate         string  `json:"ValidityStartDate"`
-	FinInstCountry            string  `json:"FinInstCountry"`
-	FinInstCode               string  `json:"FinInstCode"`
-	FinInstBranchCode         string  `json:"FinInstBranchCode"`
-	FinInstFullCode           string  `json:"FinInstFullCode"`
+	FinInstCountry            *string `json:"FinInstCountry"`
+	FinInstCode               *string `json:"FinInstCode"`
+	FinInstBranchCode         *string `json:"FinInstBranchCode"`
+	FinInstFullCode           *string `json:"FinInstFullCode"`
 	FinInstName               *string `json:"FinInstName"`
 	FinInstBranchName         *string `json:"FinInstBranchName"`
 	SWIFTCode                 *string `json:"SWIFTCode"`
@@ -101,6 +97,8 @@ type FinInst struct {
 	FinInstAccount            *string `json:"FinInstAccount"`
 	HouseBank                 *string `json:"HouseBank"`
 	HouseBankAccount          *string `json:"HouseBankAccount"`
+	CreationDate              *string `json:"CreationDate"`
+	LastChangeDate            *string `json:"LastChangeDate"`
 	IsMarkedForDeletion       *bool   `json:"IsMarkedForDeletion"`
 }
 
@@ -108,5 +106,7 @@ type Accounting struct {
 	BusinessPartner     int     `json:"BusinessPartner"`
 	ChartOfAccounts     *string `json:"ChartOfAccounts"`
 	FiscalYearVariant   *string `json:"FiscalYearVariant"`
+	CreationDate        *string `json:"CreationDate"`
+	LastChangeDate      *string `json:"LastChangeDate"`
 	IsMarkedForDeletion *bool   `json:"IsMarkedForDeletion"`
 }
