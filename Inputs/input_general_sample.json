@@ -12,15 +12,11 @@
 		"BusinessPartner": 371,
 		"BusinessPartnerFullName": "日本電信電話株式会社",
 		"BusinessPartnerName": "NTT",
-		"CreationDate": "2023-04-29",
-		"CreationTime": "15:43:11",
 		"Industry": "37",
 		"LegalEntityRegistration": "",
 		"Country": "JP",
 		"Language": "JA",
 		"Currency": "JPY",
-		"LastChangeDate": "2023-04-29",
-		"LastChangeTime": "15:43:11",
 		"OrganizationBPName1": "",
 		"OrganizationBPName2": "",
 		"OrganizationBPName3": "",
@@ -29,32 +25,43 @@
 		"BPTag2": "",
 		"BPTag3": "",
 		"BPTag4": "",
-		"OrganizationFoundationDate": "1985-04-01",
+		"OrganizationFoundationDate": "",
 		"OrganizationLiquidationDate": "",
 		"BusinessPartnerBirthplaceName": "",
 		"BusinessPartnerDeathDate": "",
-		"BusinessPartnerIsBlocked": null,
 		"GroupBusinessPartnerName1": "",
 		"GroupBusinessPartnerName2": "",
-		"AddressID": 370070001,
+		"AddressID": null,
 		"BusinessPartnerIDByExtSystem": "",
-		"IsMarkedForDeletion": false,
-		"Role": [
+		"BusinessPartnerIsBlocked": null,
+		"CreationDate": "",
+		"LastChangeDate": "",
+		"IsMarkedForDeletion": null,
+		"GeneralDoc": [
 			{
-			"BusinessPartnerRole": "SERVICE-PROVIDER",
-			"ValidityEndDate": "2023-01-01",
-			"ValidityStartDate": "2999-12-31"
+				"DocType": "",
+				"DocVersionID": null,
+				"DocID": "",
+				"FileExtension": "",
+				"FileName": "",
+				"FilePath": "",
+				"DocIssuerBusinessPartner": null
 			}
 		],
-		"FinInst": [
-			{
-			"FinInstIdentification": 1,
-			"ValidityEndDate": "2023-01-01",
-			"ValidityStartDate": "2999-12-31",
-			"FinInstCountry": "JP",
-			"FinInstCode": "0005001",
-			"FinInstBranchCode": "XXX",
-			"FinInstFullCode": "XXXX",
+		"Role": {
+			"BusinessPartnerRole": "",
+			"ValidityStartDate": "",
+			"ValidityEndDate": "",
+			"CreationDate": "",
+			"LastChangeDate": "",
+			"IsMarkedForDeletion": null
+		},
+		"FinInst": {
+			"FinInstIdentification": null,
+			"FinInstCountry": "",
+			"FinInstCode": "",
+			"FinInstBranchCode": "",
+			"FinInstFullCode": "",
 			"FinInstName": "",
 			"FinInstBranchName": "",
 			"SWIFTCode": "",
@@ -65,21 +72,20 @@
 			"FinInstAccount": "",
 			"HouseBank": "",
 			"HouseBankAccount": "",
-			"IsMarkedForDeletion": false
-			}
-		],
-		"Accounting": [
-			{
+			"CreationDate": "",
+			"LastChangeDate": "",
+			"IsMarkedForDeletion": null
+		},
+		"Accounting": {
 			"ChartOfAccounts": "",
 			"FiscalYearVariant": "",
-			"IsMarkedForDeletion": false
-			}
-		]
+			"CreationDate": "",
+			"LastChangeDate": "",
+			"IsMarkedForDeletion": null
+		}
 	},
-	"api_schema": "DPFMBusinessPartnerGeneralCreates",
+	"api_schema": "DPFMBusinessPartnerCreates",
 	"accepter": [
 		"General"
-	],
-	"business_partner_id": null,
-	"deleted": false
+	]
 }

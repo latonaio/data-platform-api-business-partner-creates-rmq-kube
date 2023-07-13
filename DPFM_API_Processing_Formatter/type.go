@@ -3,8 +3,12 @@ package dpfm_api_processing_formatter
 type GeneralUpdates struct {
 	BusinessPartner               int     `json:"BusinessPartner"`
 	BusinessPartnerFullName       *string `json:"BusinessPartnerFullName"`
+	BusinessPartnerName		      string  `json:"BusinessPartnerName"`
 	Industry                      *string `json:"Industry"`
 	LegalEntityRegistration       *string `json:"LegalEntityRegistration"`
+	Country                       string  `json:"Country"`
+	Language                      string  `json:"Language"`
+	Currency                      string  `json:"Currency"`
 	OrganizationBPName1           *string `json:"OrganizationBPName1"`
 	OrganizationBPName2           *string `json:"OrganizationBPName2"`
 	OrganizationBPName3           *string `json:"OrganizationBPName3"`
@@ -26,22 +30,22 @@ type GeneralUpdates struct {
 type RoleUpdates struct {
 	BusinessPartner     int    `json:"BusinessPartner"`
 	BusinessPartnerRole string `json:"BusinessPartnerRole"`
-	ValidityEndDate     string `json:"ValidityEndDate"`
 	ValidityStartDate   string `json:"ValidityStartDate"`
+	ValidityEndDate     string `json:"ValidityEndDate"`
 }
 
 type FinInstUpdates struct {
 	BusinessPartner           int     `json:"BusinessPartner"`
 	FinInstIdentification     int     `json:"FinInstIdentification"`
-	FinInstCountry            *string `json:"FinInstCountry"`
-	FinInstCode               *string `json:"FinInstCode"`
-	FinInstBranchCode         *string `json:"FinInstBranchCode"`
-	FinInstFullCode           *string `json:"FinInstFullCode"`
+	FinInstCountry            string  `json:"FinInstCountry"`
+	FinInstCode               string  `json:"FinInstCode"`
+	FinInstBranchCode         string  `json:"FinInstBranchCode"`
+	FinInstFullCode           string  `json:"FinInstFullCode"`
 	InternalFinInstCustomerID *int    `json:"InternalFinInstCustomerID"`
 	InternalFinInstAccountID  *int    `json:"InternalFinInstAccountID"`
-	FinInstControlKey         *string `json:"FinInstControlKey"`
-	FinInstAccountName        *string `json:"FinInstAccountName"`
-	FinInstAccount            *string `json:"FinInstAccount"`
+	FinInstControlKey         string  `json:"FinInstControlKey"`
+	FinInstAccountName        string  `json:"FinInstAccountName"`
+	FinInstAccount            string  `json:"FinInstAccount"`
 	HouseBank                 *string `json:"HouseBank"`
 	HouseBankAccount          *string `json:"HouseBankAccount"`
 }

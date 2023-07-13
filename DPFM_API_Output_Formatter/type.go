@@ -34,12 +34,12 @@ type Message struct {
 type General struct {
 	BusinessPartner               int     `json:"BusinessPartner"`
 	BusinessPartnerFullName       *string `json:"BusinessPartnerFullName"`
-	BusinessPartnerName           *string `json:"BusinessPartnerName"`
+	BusinessPartnerName           string  `json:"BusinessPartnerName"`
 	Industry                      *string `json:"Industry"`
 	LegalEntityRegistration       *string `json:"LegalEntityRegistration"`
-	Country                       *string `json:"Country"`
-	Language                      *string `json:"Language"`
-	Currency                      *string `json:"Currency"`
+	Country                       string  `json:"Country"`
+	Language                      string  `json:"Language"`
+	Currency                      string  `json:"Currency"`
 	OrganizationBPName1           *string `json:"OrganizationBPName1"`
 	OrganizationBPName2           *string `json:"OrganizationBPName2"`
 	OrganizationBPName3           *string `json:"OrganizationBPName3"`
@@ -57,8 +57,8 @@ type General struct {
 	AddressID                     *int    `json:"AddressID"`
 	BusinessPartnerIDByExtSystem  *string `json:"BusinessPartnerIDByExtSystem"`
 	BusinessPartnerIsBlocked      *bool   `json:"BusinessPartnerIsBlocked"`
-	CreationDate                  *string `json:"CreationDate"`
-	LastChangeDate                *string `json:"LastChangeDate"`
+	CreationDate                  string  `json:"CreationDate"`
+	LastChangeDate                string  `json:"LastChangeDate"`
 	IsMarkedForDeletion 		  *bool   `json:"IsMarkedForDeletion"`
 }
 
@@ -78,27 +78,30 @@ type Role struct {
 	BusinessPartnerRole string `json:"BusinessPartnerRole"`
 	ValidityEndDate     string `json:"ValidityEndDate"`
 	ValidityStartDate   string `json:"ValidityStartDate"`
+	CreationDate        string  `json:"CreationDate"`
+	LastChangeDate      string  `json:"LastChangeDate"`
+	IsMarkedForDeletion *bool   `json:"IsMarkedForDeletion"`
 }
 
 type FinInst struct {
 	BusinessPartner           int     `json:"BusinessPartner"`
 	FinInstIdentification     int     `json:"FinInstIdentification"`
-	FinInstCountry            *string `json:"FinInstCountry"`
-	FinInstCode               *string `json:"FinInstCode"`
-	FinInstBranchCode         *string `json:"FinInstBranchCode"`
-	FinInstFullCode           *string `json:"FinInstFullCode"`
-	FinInstName               *string `json:"FinInstName"`
-	FinInstBranchName         *string `json:"FinInstBranchName"`
+	FinInstCountry            string  `json:"FinInstCountry"`
+	FinInstCode               string  `json:"FinInstCode"`
+	FinInstBranchCode         string  `json:"FinInstBranchCode"`
+	FinInstFullCode           string  `json:"FinInstFullCode"`
+	FinInstName               string  `json:"FinInstName"`
+	FinInstBranchName         string  `json:"FinInstBranchName"`
 	SWIFTCode                 *string `json:"SWIFTCode"`
 	InternalFinInstCustomerID *int    `json:"InternalFinInstCustomerID"`
 	InternalFinInstAccountID  *int    `json:"InternalFinInstAccountID"`
-	FinInstControlKey         *string `json:"FinInstControlKey"`
-	FinInstAccountName        *string `json:"FinInstAccountName"`
-	FinInstAccount            *string `json:"FinInstAccount"`
+	FinInstControlKey         string  `json:"FinInstControlKey"`
+	FinInstAccountName        string  `json:"FinInstAccountName"`
+	FinInstAccount            string  `json:"FinInstAccount"`
 	HouseBank                 *string `json:"HouseBank"`
 	HouseBankAccount          *string `json:"HouseBankAccount"`
-	CreationDate              *string `json:"CreationDate"`
-	LastChangeDate            *string `json:"LastChangeDate"`
+	CreationDate              string  `json:"CreationDate"`
+	LastChangeDate            string  `json:"LastChangeDate"`
 	IsMarkedForDeletion       *bool   `json:"IsMarkedForDeletion"`
 }
 
@@ -106,7 +109,7 @@ type Accounting struct {
 	BusinessPartner     int     `json:"BusinessPartner"`
 	ChartOfAccounts     *string `json:"ChartOfAccounts"`
 	FiscalYearVariant   *string `json:"FiscalYearVariant"`
-	CreationDate        *string `json:"CreationDate"`
-	LastChangeDate      *string `json:"LastChangeDate"`
+	CreationDate        string  `json:"CreationDate"`
+	LastChangeDate      string  `json:"LastChangeDate"`
 	IsMarkedForDeletion *bool   `json:"IsMarkedForDeletion"`
 }

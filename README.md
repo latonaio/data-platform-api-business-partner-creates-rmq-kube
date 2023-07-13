@@ -19,7 +19,7 @@ APIサービス URL: https://xxx.xxx.io/api/API_BUSINESS_PARTNER_SRV/creates/
 data-platform-api-business-partner-creates-rmq-kube には、次の API をコールするためのリソースが含まれています。  
 
 * A_General（ビジネスパートナ - 一般データ）
-* A_GeneralPDF（ビジネスパートナ - 一般PDFデータ）
+* A_GeneralDoc（ビジネスパートナ - 一般文書データ）
 * A_Role（ビジネスパートナ - ロールデータ）
 * A_FinInst（ビジネスパートナ - 金融機関データ）
 * A_Accounting（ビジネスパートナ - 会計データ）
@@ -40,8 +40,6 @@ accepter において 下記の例のように、データの種別（＝APIの�
 ```
 	"api_schema": "DPFMBusinessPartnerCreates",
 	"accepter": ["General"],
-	"order_id": null,
-	"deleted": false
 ```
   
 * 全データを取得する際のsample.jsonの記載例(2)  
@@ -51,8 +49,6 @@ accepter において 下記の例のように、データの種別（＝APIの�
 ```
 	"api_schema": "DPFMBusinessPartnerCreates",
 	"accepter": ["All"],
-	"order_id": null,
-	"deleted": false
 ```
 
 ## 指定されたデータ種別のコール
@@ -61,7 +57,7 @@ accepter における データ種別 の指定に基づいて DPFM_API_Caller �
 caller.go の func() 毎 の 以下の箇所が、指定された API をコールするソースコードです。  
 
 ```
-func (c *DPFMAPICaller) AsyncBusinessPartnerCreates(
+func (c *DPFMAPICaller) AsyncCreates(
 	accepter []string,
 	input *dpfm_api_input_reader.SDC,
 
@@ -105,7 +101,7 @@ func (c *DPFMAPICaller) AsyncBusinessPartnerCreates(
 
 ## Output  
 本マイクロサービスでは、[golang-logging-library-for-data-platform](https://github.com/latonaio/golang-logging-library-for-data-platform) により、以下のようなデータがJSON形式で出力されます。  
-以下の sample.json の例は ビジネスパートナ の 一般データ が取得された結果の JSON の例です。  
+以下の sample.json の例は ビジネスパートナ の 一般データ が登録された結果の JSON の例です。  
 以下の項目のうち、"OrderID" ～ "PlusMinusFlag" は、/DPFM_API_Output_Formatter/type.go 内 の Type Header {} による出力結果です。"cursor" ～ "time"は、golang-logging-library による 定型フォーマットの出力結果です。  
 
 ```

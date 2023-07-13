@@ -10,9 +10,12 @@ func ConvertToGeneralUpdates(general dpfm_api_input_reader.General) *GeneralUpda
 	return &GeneralUpdates{
 		BusinessPartner:               data.BusinessPartner,
 		BusinessPartnerFullName:       data.BusinessPartnerFullName,
-		CreationTime:                  data.CreationTime,
+		BusinessPartnerName:		   data.BusinessPartnerName,
 		Industry:                      data.Industry,
 		LegalEntityRegistration:       data.LegalEntityRegistration,
+		Country:                       data.Country,
+		Language:                      data.Language,
+		Currency:                      data.Currency,
 		OrganizationBPName1:           data.OrganizationBPName1,
 		OrganizationBPName2:           data.OrganizationBPName2,
 		OrganizationBPName3:           data.OrganizationBPName3,
@@ -25,11 +28,10 @@ func ConvertToGeneralUpdates(general dpfm_api_input_reader.General) *GeneralUpda
 		OrganizationLiquidationDate:   data.OrganizationLiquidationDate,
 		BusinessPartnerBirthplaceName: data.BusinessPartnerBirthplaceName,
 		BusinessPartnerDeathDate:      data.BusinessPartnerDeathDate,
-		BusinessPartnerIsBlocked:      data.BusinessPartnerIsBlocked,
 		GroupBusinessPartnerName1:     data.GroupBusinessPartnerName1,
 		GroupBusinessPartnerName2:     data.GroupBusinessPartnerName2,
 		BusinessPartnerIDByExtSystem:  data.BusinessPartnerIDByExtSystem,
-		IsMarkedForDeletion:           data.IsMarkedForDeletion,
+		BusinessPartnerIsBlocked:      data.BusinessPartnerIsBlocked,
 	}
 }
 
@@ -40,8 +42,8 @@ func ConvertToRoleUpdates(general dpfm_api_input_reader.General, role dpfm_api_i
 	return &RoleUpdates{
 		BusinessPartner:     dataGeneral.BusinessPartner,
 		BusinessPartnerRole: data.BusinessPartnerRole,
-		ValidityEndDate:     data.ValidityEndDate,
 		ValidityStartDate:   data.ValidityStartDate,
+		ValidityEndDate:     data.ValidityEndDate,
 	}
 }
 
@@ -74,6 +76,5 @@ func ConvertToAccountingUpdates(general dpfm_api_input_reader.General, accountin
 		BusinessPartner:     dataGeneral.BusinessPartner,
 		ChartOfAccounts:     data.ChartOfAccounts,
 		FiscalYearVariant:   data.FiscalYearVariant,
-		IsMarkedForDeletion: data.IsMarkedForDeletion,
 	}
 }
