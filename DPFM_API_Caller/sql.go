@@ -211,6 +211,7 @@ func (c *DPFMAPICaller) roleCreateSql(
 
 	return data
 }
+
 func (c *DPFMAPICaller) accountingCreateSql(
 	ctx context.Context,
 	mtx *sync.Mutex,
@@ -380,6 +381,7 @@ func (c *DPFMAPICaller) roleUpdateSql(
 
 	return data
 }
+
 func (c *DPFMAPICaller) accountingUpdateSql(
 	mtx *sync.Mutex,
 	input *dpfm_api_input_reader.SDC,
@@ -447,6 +449,7 @@ func roleIsUpdate(role *dpfm_api_processing_formatter.RoleUpdates) bool {
 
 	return !(businessPartner == 0 || businessPartnerRole == "" || validityEndDate == "" || validityStartDate == "")
 }
+
 func accountingIsUpdate(accounting *dpfm_api_processing_formatter.AccountingUpdates) bool {
 	businessPartner := accounting.BusinessPartner
 
