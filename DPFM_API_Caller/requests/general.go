@@ -1,22 +1,25 @@
 package requests
 
 type General struct {
-	BusinessPartner               int     `json:"BusinessPartner"`
+	BusinessPartner               *int    `json:"BusinessPartner"`
+	BusinessPartnerType			  string  `json:"BusinessPartnerType"`
 	BusinessPartnerFullName       *string `json:"BusinessPartnerFullName"`
 	BusinessPartnerName           string  `json:"BusinessPartnerName"`
 	Industry                      *string `json:"Industry"`
 	LegalEntityRegistration       *string `json:"LegalEntityRegistration"`
 	Country                       string  `json:"Country"`
 	Language                      string  `json:"Language"`
-	Currency                      string  `json:"Currency"`
+	Currency                      *string `json:"Currency"`
+	Representative           	  *string `json:"Representative"`
+	PhoneNumber           		  *string `json:"PhoneNumber"`
 	OrganizationBPName1           *string `json:"OrganizationBPName1"`
 	OrganizationBPName2           *string `json:"OrganizationBPName2"`
 	OrganizationBPName3           *string `json:"OrganizationBPName3"`
 	OrganizationBPName4           *string `json:"OrganizationBPName4"`
-	BPTag1                        *string `json:"BPTag1"`
-	BPTag2                        *string `json:"BPTag2"`
-	BPTag3                        *string `json:"BPTag3"`
-	BPTag4                        *string `json:"BPTag4"`
+	Tag1                          *string `json:"Tag1"`
+	Tag2                          *string `json:"Tag2"`
+	Tag3                          *string `json:"Tag3"`
+	Tag4                          *string `json:"Tag4"`
 	OrganizationFoundationDate    *string `json:"OrganizationFoundationDate"`
 	OrganizationLiquidationDate   *string `json:"OrganizationLiquidationDate"`
 	BusinessPartnerBirthplaceName *string `json:"BusinessPartnerBirthplaceName"`

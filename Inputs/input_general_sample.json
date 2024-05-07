@@ -2,8 +2,8 @@
 	"connection_key": "request",
 	"result": true,
 	"redis_key": "abcdefg",
-	"filepath": "/var/lib/aion/Data/rededge_sdc/abcdef.json",
 	"api_status_code": 200,
+	"filepath": "/var/lib/aion/Data/rededge_sdc/abcdef.json",
 	"runtime_session_id": "boi9ar543dg91ipdnspi099u231280ab0v8af0ew",
 	"business_partner": null,
 	"service_label": "BUSINESS_PARTNER",
@@ -43,6 +43,7 @@
 	},
 	"BusinessPartner": {
 		"BusinessPartner": null,
+		"BusinessPartnerType": "",
 		"BusinessPartnerFullName": "",
 		"BusinessPartnerName": "",
 		"Industry": "",
@@ -50,14 +51,16 @@
 		"Country": "",
 		"Language": "",
 		"Currency": "",
+		"Representative": "",
+		"PhoneNumber": "",
 		"OrganizationBPName1": "",
 		"OrganizationBPName2": "",
 		"OrganizationBPName3": "",
 		"OrganizationBPName4": "",
-		"BPTag1": "",
-		"BPTag2": "",
-		"BPTag3": "",
-		"BPTag4": "",
+		"Tag1": "",
+		"Tag2": "",
+		"Tag3": "",
+		"Tag4": "",
 		"OrganizationFoundationDate": "",
 		"OrganizationLiquidationDate": "",
 		"BusinessPartnerBirthplaceName": "",
@@ -83,34 +86,167 @@
 				"DocIssuerBusinessPartner": null
 			}
 		],
-		"Role": {
-			"BusinessPartnerRole": "",
-			"ValidityStartDate": "",
-			"ValidityEndDate": "",
-			"CreationDate": "",
-			"LastChangeDate": "",
-			"IsMarkedForDeletion": null
-		},
-		"FinInst": {
-			"FinInstIdentification": null,
-			"FinInstCountry": "",
-			"FinInstCode": "",
-			"FinInstBranchCode": "",
-			"FinInstFullCode": "",
-			"FinInstName": "",
-			"FinInstBranchName": "",
-			"SWIFTCode": "",
-			"InternalFinInstCustomerID": null,
-			"InternalFinInstAccountID": null,
-			"FinInstControlKey": "",
-			"FinInstAccountName": "",
-			"FinInstAccount": "",
-			"HouseBank": "",
-			"HouseBankAccount": "",
-			"CreationDate": "",
-			"LastChangeDate": "",
-			"IsMarkedForDeletion": null
-		},
+		"Role": [
+			{
+				"BusinessPartnerRole": "",
+				"ValidityStartDate": "",
+				"ValidityEndDate": "",
+				"CreationDate": "",
+				"LastChangeDate": "",
+				"IsMarkedForDeletion": null
+			}
+		],
+		"Person": [
+			{
+				"BusinessPartnerType": "",
+				"FirstName": "",
+				"LastName": "",
+				"FullName": "",
+				"MiddleName": "",
+				"NickName": "",
+				"Gender": "",
+				"Language": "",
+				"CorrespondenceLanguage": "",
+				"BirthDate": "",
+				"Nationality": "",
+				"EmailAddress": "",
+				"MobilePhoneNumber": "",
+				"ProfileComment": "",
+				"PreferableLocalSubRegion": "",
+				"PreferableLocalRegion": "",
+				"PreferableCountry": "",
+				"ActPurpose": "",
+				"CreationDate": "",
+				"LastChangeDate": "",
+				"IsMarkedForDeletion": null
+			}
+		],
+		"Address": [
+			{
+				"AddressID": null,
+				"PostalCode": "",
+				"LocalSubRegion": "",
+				"LocalRegion": "",
+				"Country": "",
+				"GlobalRegion": "",
+				"District": "",
+				"TimeZone": "",
+				"StreetName": "",
+				"CityName": "",
+				"Building": "",
+				"Floor": null,
+				"Room": null,
+				"XCoordinate": null,
+				"YCoordinate": null,
+				"ZCoordinate": null,
+				"Site": null
+			}
+		],
+		"SNS": [
+			{
+				"BusinessPartnerType": "",
+				"XURL": "",
+				"InstagramURL": "",
+				"TikTokURL": "",
+				"CreationDate": "",
+				"LastChangeDate": "",
+				"IsMarkedForDeletion": null
+			}
+		],
+		"GPS": [
+			{
+				"BusinessPartnerType": "",
+				"XCoordinate": null,
+				"YCoordinate": null,
+				"ZCoordinate": null,
+				"LocalSubRegion": "",
+				"LocalRegion": "",
+				"Country": "",
+				"CreationDate": "",
+				"CreationTime": "",
+				"LastChangeDate": "",
+				"LastChangeTime": "",
+				"IsMarkedForDeletion": null
+			}
+		],
+		"Rank": [
+			{
+				"RankType": "",
+				"Rank": null,
+				"ValidityStartDate": "",
+				"ValidityEndDate": "",
+				"CreationDate": "",
+				"LastChangeDate": "",
+				"IsMarkedForDeletion": null
+			}
+		],
+		"PersonOrganization": [
+			{
+				"BusinessPartnerType": "",
+				"OrganizationBusinessPartner": null,
+				"CreationDate": "",
+				"LastChangeDate": "",
+				"IsMarkedForDeletion": null
+			}
+		],
+		"PersonMobilePhoneAuth": [
+			{
+				"BusinessPartnerType": "",
+				"MobilePhoneNumber": "",
+				"MobilePhoneIsAuthenticated": null,
+				"CreationDate": "",
+				"LastChangeDate": "",
+				"IsMarkedForDeletion": null
+			}
+		],
+		"PersonGoogleAccountAuth": [
+			{
+				"BusinessPartnerType": "",
+				"EmailAddress": "",
+				"GoogleID": "",
+				"GoogleAccountIsAuthenticated": null,
+				"CreationDate": "",
+				"LastChangeDate": "",
+				"IsMarkedForDeletion": null
+			}
+		],
+		"PersonInstagramAuth": [
+			{
+				"BusinessPartnerType": "",
+				"InstagramID": "",
+				"InstagramUserName": "",
+				"InstagramHasProfilePricture": null,
+				"InstagramProfilePrictureURI": "",
+				"InstagramIsPrivate": null,
+				"InstagramIsPublished": null,
+				"InstagramIsAuthenticated": null,
+				"CreationDate": "",
+				"LastChangeDate": "",
+				"IsMarkedForDeletion": null
+			}
+		],
+		"FinInst": [
+			{
+				"FinInstIdentification": null,
+				"FinInstCountry": "",
+				"FinInstCode": "",
+				"FinInstBranchCode": "",
+				"FinInstFullCode": "",
+				"FinInstName": "",
+				"FinInstBranchName": "",
+				"SWIFTCode": "",
+				"InternalFinInstCustomerID": null,
+				"InternalFinInstAccountID": null,
+				"FinInstControlKey": "",
+				"FinInstAccountName": "",
+				"FinInstAccount": "",
+				"HouseBank": "",
+				"HouseBankAccount": "",
+				"CreationDate": "",
+				"LastChangeDate": "",
+				"IsMarkedForDeletion": null
+			}
+		],
 		"Accounting": {
 			"ChartOfAccounts": "",
 			"FiscalYearVariant": "",

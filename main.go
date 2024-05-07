@@ -115,7 +115,19 @@ func getAccepter(input *dpfm_api_input_reader.SDC) []string {
 
 	if accepter[0] == "All" {
 		accepter = []string{
-			"General", "Role", "FinInst", "Accounting",
+			"General",
+			"Role",
+			"Person",
+			"Address",
+			"SNS",
+			"GPS",
+			"Rank",
+			"PersonOrganization",
+			"PersonMobilePhoneAuth",
+			"PersonGoogleAccountAuth",
+			"PersonInstagramAuth",
+			"FinInst",
+			"Accounting",
 		}
 	}
 	return accepter

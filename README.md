@@ -1,16 +1,13 @@
 # data-platform-api-business-partner-creates-rmq-kube
-
-data-platform-api-business-partner-creates-rmq-kube は、周辺業務システム　を データ連携基盤 と統合することを目的に、API でビジネスパートナデータを登録/更新するマイクロサービスです。
+data-platform-api-business-partner-creates-rmq-kube は、周辺システム　を データ連携基盤 と統合することを目的に、API でビジネスパートナデータを登録/更新するマイクロサービスです。
 
 * https://xxx.xxx.io/api/API_BUSINESS_PARTNER_SRV/creates/
 * https://xxx.xxx.io/api/API_BUSINESS_PARTNER_SRV/updates/
 
 ## 動作環境
-
 data-platform-api-business-partner-creates-rmq-kube の動作環境は、次の通りです。  
 ・ OS: LinuxOS （必須）  
 ・ CPU: ARM/AMD/Intel（いずれか必須）  
-
 
 ## 本レポジトリ が 対応する API サービス
 data-platform-api-business-partner-creates-rmq-kube が対応する APIサービス は、次のものです。
@@ -21,11 +18,19 @@ data-platform-api-business-partner-creates-rmq-kube が対応する APIサービ
 ## 本レポジトリ に 含まれる API名
 data-platform-api-business-partner-creates-rmq-kube には、次の API をコールするためのリソースが含まれています。  
 
-* A_General（ビジネスパートナ - 一般データ）
-* A_GeneralDoc（ビジネスパートナ - 一般文書データ）
-* A_Role（ビジネスパートナ - ロールデータ）
-* A_FinInst（ビジネスパートナ - 金融機関データ）
-* A_Accounting（ビジネスパートナ - 会計データ）
+* A_General（ビジネスパートナ - 一般）
+* A_GeneralDoc（ビジネスパートナ - 一般文書）
+* A_Role（ビジネスパートナ - ロール）
+* A_Person（ビジネスパートナ - 個人）
+* A_Address（ビジネスパートナ - 住所）
+* A_SNS（ビジネスパートナ - SNS）
+* A_GPS（ビジネスパートナ - GPS）
+* A_Rank（ビジネスパートナ - ランク）
+* A_PersonOrganization（ビジネスパートナ - 個人組織）
+* A_PersonMobilePhoneAuth（ビジネスパートナ - 個人携帯電話認証）
+* A_PersonGoogleAccountAuth（ビジネスパートナ - 個人Googleアカウント認証）
+* A_FinInst（ビジネスパートナ - 金融機関）
+* A_Accounting（ビジネスパートナ - 会計）
 
 ## API への 値入力条件 の 初期値
 data-platform-api-business-partner-creates-rmq-kube において、API への値入力条件の初期値は、入力ファイルレイアウトの種別毎に、次の通りとなっています。  
@@ -104,7 +109,7 @@ func (c *DPFMAPICaller) AsyncCreates(
 
 ## Output  
 本マイクロサービスでは、[golang-logging-library-for-data-platform](https://github.com/latonaio/golang-logging-library-for-data-platform) により、以下のようなデータがJSON形式で出力されます。  
-以下の sample.json の例は ビジネスパートナ の 一般データ が登録された結果の JSON の例です。  
+以下の sample.json の例は ビジネスパートナ の 一般データ が登録/更新された結果の JSON の例です。  
 以下の項目のうち、"BusinessPartner" ～ "IsMarkedForDeletion" は、/DPFM_API_Output_Formatter/type.go 内 の Type General {} による出力結果です。"cursor" ～ "time"は、golang-logging-library による 定型フォーマットの出力結果です。  
 
 ```

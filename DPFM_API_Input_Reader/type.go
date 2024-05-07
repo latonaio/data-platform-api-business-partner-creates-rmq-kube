@@ -70,22 +70,25 @@ type SDC struct {
 }
 
 type General struct {
-	BusinessPartner               int     `json:"BusinessPartner"`
+	BusinessPartner               *int    `json:"BusinessPartner"`
+	BusinessPartnerType           string  `json:"BusinessPartnerType"`
 	BusinessPartnerFullName       *string `json:"BusinessPartnerFullName"`
-	BusinessPartnerName           *string `json:"BusinessPartnerName"`
+	BusinessPartnerName           string  `json:"BusinessPartnerName"`
 	Industry                      *string `json:"Industry"`
 	LegalEntityRegistration       *string `json:"LegalEntityRegistration"`
-	Country                       *string `json:"Country"`
-	Language                      *string `json:"Language"`
+	Country                       string  `json:"Country"`
+	Language                      string  `json:"Language"`
 	Currency                      *string `json:"Currency"`
+	Representative           	  *string `json:"Representative"`
+	PhoneNumber           		  *string `json:"PhoneNumber"`
 	OrganizationBPName1           *string `json:"OrganizationBPName1"`
 	OrganizationBPName2           *string `json:"OrganizationBPName2"`
 	OrganizationBPName3           *string `json:"OrganizationBPName3"`
 	OrganizationBPName4           *string `json:"OrganizationBPName4"`
-	BPTag1                        *string `json:"BPTag1"`
-	BPTag2                        *string `json:"BPTag2"`
-	BPTag3                        *string `json:"BPTag3"`
-	BPTag4                        *string `json:"BPTag4"`
+	Tag1                          *string `json:"Tag1"`
+	Tag2                          *string `json:"Tag2"`
+	Tag3                          *string `json:"Tag3"`
+	Tag4                          *string `json:"Tag4"`
 	OrganizationFoundationDate    *string `json:"OrganizationFoundationDate"`
 	OrganizationLiquidationDate   *string `json:"OrganizationLiquidationDate"`
 	BusinessPartnerBirthplaceName *string `json:"BusinessPartnerBirthplaceName"`
@@ -97,63 +100,189 @@ type General struct {
 	BusinessPartnerIsBlocked      *bool   `json:"BusinessPartnerIsBlocked"`
 	CertificateAuthorityChain     *string `json:"CertificateAuthorityChain"`
 	UsageControlChain        	  *string `json:"UsageControlChain"`
-	CreationDate                  *string `json:"CreationDate"`
-	LastChangeDate                *string `json:"LastChangeDate"`
-	IsMarkedForDeletion 		  *bool   `json:"IsMarkedForDeletion"`
-	GeneralDoc                    []GeneralDoc `json:"GeneralDoc"`
+	CreationDate                  string  `json:"CreationDate"`
+	LastChangeDate                string  `json:"LastChangeDate"`
+	IsMarkedForDeletion           *bool   `json:"IsMarkedForDeletion"`
 	Role                          []Role       `json:"Role"`
+	Person                        []Person     `json:"Person"`
+	Address                       []Address    `json:"Address"`
+	Rank    					  []Rank       `json:"Rank"`
+	SNS	    					  []SNS        `json:"SNS"`
+	GPS	    					  []GPS        `json:"GPS"`
+	PersonOrganization         	  []PersonOrganization		`json:"PersonOrganization"`
+	PersonMobilePhoneAuth         []PersonMobilePhoneAuth	`json:"PersonMobilePhoneAuth"`
+	PersonGoogleAccountAuth		  []PersonGoogleAccountAuth	`json:"PersonGoogleAccountAuth"`
+	PersonInstagramAuth		  	  []PersonInstagramAuth		`json:"PersonInstagramAuth"`
 	FinInst                       []FinInst    `json:"FinInst"`
 	Accounting                    []Accounting `json:"Accounting"`
 }
 
-type GeneralDoc struct {
-	BusinessPartner          int     `json:"BusinessPartner"`
-	DocType                  string  `json:"DocType"`
-	DocVersionID             int     `json:"DocVersionID"`
-	DocID                    string  `json:"DocID"`
-	FileExtension            *string `json:"FileExtension"`
-	FileName                 *string `json:"FileName"`
-	FilePath                 *string `json:"FilePath"`
-	DocIssuerBusinessPartner *int    `json:"DocIssuerBusinessPartner"`
+type Role struct {
+	BusinessPartner     int 	`json:"BusinessPartner"`
+	BusinessPartnerRole string	`json:"BusinessPartnerRole"`
+	ValidityStartDate	string	`json:"ValidityStartDate"`
+	ValidityEndDate     string	`json:"ValidityEndDate"`
+	CreationDate		string	`json:"CreationDate"`
+	LastChangeDate		string  `json:"LastChangeDate"`
+	IsMarkedForDeletion	*bool   `json:"IsMarkedForDeletion"`
 }
 
-type Role struct {
-	BusinessPartner     int     `json:"BusinessPartner"`
-	BusinessPartnerRole string  `json:"BusinessPartnerRole"`
-	ValidityStartDate   string  `json:"ValidityStartDate"`
-	ValidityEndDate     string  `json:"ValidityEndDate"`
-	CreationDate        *string `json:"CreationDate"`
-	LastChangeDate      *string `json:"LastChangeDate"`
-	IsMarkedForDeletion *bool   `json:"IsMarkedForDeletion"`
+type Person struct {
+	BusinessPartner        		int     `json:"BusinessPartner"`
+	BusinessPartnerType    		string  `json:"BusinessPartnerType"`
+	FirstName              		*string `json:"FirstName"`
+	LastName               		*string `json:"LastName"`
+	FullName               		*string `json:"FullName"`
+	MiddleName             		*string `json:"MiddleName"`
+	NickName               		string  `json:"NickName"`
+	Gender                 		string  `json:"Gender"`
+	Language               		string  `json:"Language"`
+	CorrespondenceLanguage 		*string `json:"CorrespondenceLanguage"`
+	BirthDate              		*string `json:"BirthDate"`
+	Nationality		            string  `json:"Nationality"`
+	EmailAddress           		*string `json:"EmailAddress"`
+	MobilePhoneNumber      		*string `json:"MobilePhoneNumber"`
+	ProfileComment         		*string `json:"ProfileComment"`
+	PreferableLocalSubRegion	string  `json:"PreferableLocalSubRegion"`
+	PreferableLocalRegion		string  `json:"PreferableLocalRegion"`
+	PreferableCountry			string  `json:"PreferableCountry"`
+	ActPurpose					string  `json:"ActPurpose"`
+	CreationDate           		string  `json:"CreationDate"`
+	LastChangeDate         		string  `json:"LastChangeDate"`
+	IsMarkedForDeletion    		*bool   `json:"IsMarkedForDeletion"`
+}
+
+type Address struct {
+	BusinessPartner     int 	`json:"BusinessPartner"`
+	AddressID   		int     `json:"AddressID"`
+	PostalCode  		string 	`json:"PostalCode"`
+	LocalSubRegion 		string 	`json:"LocalSubRegion"`
+	LocalRegion 		string 	`json:"LocalRegion"`
+	Country     		string 	`json:"Country"`
+	GlobalRegion   		string 	`json:"GlobalRegion"`
+	TimeZone   			string 	`json:"TimeZone"`
+	District    		*string `json:"District"`
+	StreetName  		*string `json:"StreetName"`
+	CityName    		*string `json:"CityName"`
+	Building    		*string `json:"Building"`
+	Floor       		*int	`json:"Floor"`
+	Room        		*int	`json:"Room"`
+	XCoordinate 		*float32 `json:"XCoordinate"`
+	YCoordinate 		*float32 `json:"YCoordinate"`
+	ZCoordinate 		*float32 `json:"ZCoordinate"`
+	Site				*int	`json:"Site"`
+}
+
+type SNS struct {
+	BusinessPartner     int		`json:"BusinessPartner"`
+	BusinessPartnerType	string	`json:"BusinessPartnerType"`
+	XURL  				*string	`json:"XURL"`
+	InstagramURL     	*string	`json:"InstagramURL"`
+	TikTokURL         	*string	`json:"TikTokURL"`
+	CreationDate        string	`json:"CreationDate"`
+	LastChangeDate      string	`json:"LastChangeDate"`
+	IsMarkedForDeletion *bool	`json:"IsMarkedForDeletion"`
+}
+
+type GPS struct {
+	BusinessPartner     int		`json:"BusinessPartner"`
+	BusinessPartnerType	string	`json:"BusinessPartnerType"`
+	XCoordinate     	float32	`json:"XCoordinate"`
+	YCoordinate     	float32	`json:"YCoordinate"`
+	ZCoordinate     	float32	`json:"ZCoordinate"`
+	LocalSubRegion  	string	`json:"LocalSubRegion"`
+	LocalRegion     	string	`json:"LocalRegion"`
+	Country         	string	`json:"Country"`
+	CreationDate        string	`json:"CreationDate"`
+	CreationTime        string	`json:"CreationTime"`
+	LastChangeDate      string	`json:"LastChangeDate"`
+	LastChangeTime      string	`json:"LastChangeTime"`
+	IsMarkedForDeletion *bool	`json:"IsMarkedForDeletion"`
+}
+
+type Rank struct {
+	BusinessPartner     int 	`json:"BusinessPartner"`
+	RankType			string	`json:"RankType"`
+	Rank				int		`json:"Rank"`
+	ValidityStartDate	string	`json:"ValidityStartDate"`
+	ValidityEndDate     string	`json:"ValidityEndDate"`
+	CreationDate		string	`json:"CreationDate"`
+	LastChangeDate		string  `json:"LastChangeDate"`
+	IsMarkedForDeletion	*bool   `json:"IsMarkedForDeletion"`
+}
+
+type PersonOrganization struct {
+	BusinessPartner        		int     `json:"BusinessPartner"`
+	BusinessPartnerType    		string  `json:"BusinessPartnerType"`
+	OrganizationBusinessPartner	int  `json:"OrganizationBusinessPartner"`
+	CreationDate           		string  `json:"CreationDate"`
+	LastChangeDate         		string  `json:"LastChangeDate"`
+	IsMarkedForDeletion    		*bool   `json:"IsMarkedForDeletion"`
+}
+
+type PersonMobilePhoneAuth struct {
+	BusinessPartner				int		`json:"BusinessPartner"`
+	BusinessPartnerType			string	`json:"BusinessPartnerType"`
+	MobilePhoneNumber			string	`json:"MobilePhoneNumber"`
+	MobilePhoneIsAuthenticated	bool	`json:"MobilePhoneIsAuthenticated"`
+	CreationDate				string	`json:"CreationDate"`
+	LastChangeDate				string	`json:"LastChangeDate"`
+	IsMarkedForDeletion			*bool	`json:"IsMarkedForDeletion"`
+}
+
+type PersonGoogleAccountAuth struct {
+	BusinessPartner					int		`json:"BusinessPartner"`
+	BusinessPartnerType				string	`json:"BusinessPartnerType"`
+	EmailAddress					string	`json:"EmailAddress"`
+	GoogleID						string	`json:"GoogleID"`
+	GoogleAccountIsAuthenticated	bool	`json:"GoogleAccountIsAuthenticated"`
+	CreationDate					string	`json:"CreationDate"`
+	LastChangeDate					string	`json:"LastChangeDate"`
+	IsMarkedForDeletion				*bool	`json:"IsMarkedForDeletion"`
+}
+
+type PersonInstagramAuth struct {
+	BusinessPartner					int		`json:"BusinessPartner"`
+	BusinessPartnerType				string	`json:"BusinessPartnerType"`
+	InstagramID						string	`json:"InstagramID"`
+	InstagramUserName        		string  `json:"InstagramUserName"`
+	InstagramHasProfilePricture 	bool    `json:"InstagramHasProfilePricture"`
+	InstagramProfilePrictureURI		*string `json:"InstagramProfilePrictureURI"`
+	InstagramIsPrivate 				bool    `json:"InstagramIsPrivate"`
+	InstagramIsPublished 			bool    `json:"InstagramIsPublished"`
+	InstagramIsAuthenticated		bool	`json:"InstagramIsAuthenticated"`
+	CreationDate					string	`json:"CreationDate"`
+	LastChangeDate					string	`json:"LastChangeDate"`
+	IsMarkedForDeletion				*bool	`json:"IsMarkedForDeletion"`
 }
 
 type FinInst struct {
 	BusinessPartner           int     `json:"BusinessPartner"`
 	FinInstIdentification     int     `json:"FinInstIdentification"`
-	FinInstCountry            *string `json:"FinInstCountry"`
-	FinInstCode               *string `json:"FinInstCode"`
-	FinInstBranchCode         *string `json:"FinInstBranchCode"`
-	FinInstFullCode           *string `json:"FinInstFullCode"`
-	FinInstName               *string `json:"FinInstName"`
-	FinInstBranchName         *string `json:"FinInstBranchName"`
+	FinInstCountry            string  `json:"FinInstCountry"`
+	FinInstCode               string  `json:"FinInstCode"`
+	FinInstBranchCode         string  `json:"FinInstBranchCode"`
+	FinInstFullCode           string  `json:"FinInstFullCode"`
+	FinInstName               string  `json:"FinInstName"`
+	FinInstBranchName         string  `json:"FinInstBranchName"`
 	SWIFTCode                 *string `json:"SWIFTCode"`
 	InternalFinInstCustomerID *int    `json:"InternalFinInstCustomerID"`
 	InternalFinInstAccountID  *int    `json:"InternalFinInstAccountID"`
-	FinInstControlKey         *string `json:"FinInstControlKey"`
-	FinInstAccountName        *string `json:"FinInstAccountName"`
-	FinInstAccount            *string `json:"FinInstAccount"`
+	FinInstControlKey         string  `json:"FinInstControlKey"`
+	FinInstAccountName        string  `json:"FinInstAccountName"`
+	FinInstAccount            string  `json:"FinInstAccount"`
 	HouseBank                 *string `json:"HouseBank"`
 	HouseBankAccount          *string `json:"HouseBankAccount"`
-	CreationDate              *string `json:"CreationDate"`
-	LastChangeDate            *string `json:"LastChangeDate"`
+	CreationDate              string  `json:"CreationDate"`
+	LastChangeDate            string  `json:"LastChangeDate"`
 	IsMarkedForDeletion       *bool   `json:"IsMarkedForDeletion"`
 }
 
 type Accounting struct {
 	BusinessPartner     int     `json:"BusinessPartner"`
-	ChartOfAccounts     *string `json:"ChartOfAccounts"`
-	FiscalYearVariant   *string `json:"FiscalYearVariant"`
-	CreationDate        *string `json:"CreationDate"`
-	LastChangeDate      *string `json:"LastChangeDate"`
+	ChartOfAccounts     string  `json:"ChartOfAccounts"`
+	FiscalYearVariant   string  `json:"FiscalYearVariant"`
+	CreationDate        string  `json:"CreationDate"`
+	LastChangeDate      string  `json:"LastChangeDate"`
 	IsMarkedForDeletion *bool   `json:"IsMarkedForDeletion"`
 }
